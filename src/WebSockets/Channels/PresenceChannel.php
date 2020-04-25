@@ -30,7 +30,7 @@ class PresenceChannel extends Channel
         $connection->send(json_encode([
             'event' => 'pusher_internal:subscription_succeeded',
             'channel' => $this->channelName,
-            'data' => json_encode($this->getChannelData()),
+            'data' => json_encode($this->users),
         ]));
 
         $this->broadcastToOthers($connection, [
@@ -44,7 +44,7 @@ class PresenceChannel extends Channel
     {
         parent::unsubscribe($connection);
 
-        if (! isset($this->users[$connection->socketId])) {
+        if (!isset($this->users[$connection->socketId])) {
             return;
         }
 
