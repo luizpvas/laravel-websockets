@@ -30,7 +30,7 @@ class PresenceChannel extends Channel
         $connection->send(json_encode([
             'event' => 'pusher_internal:subscription_succeeded',
             'channel' => $this->channelName,
-            'data' => json_encode($this->users),
+            'data' => json_encode($this->getChannelData()),
         ]));
 
         $this->broadcastToOthers($connection, [
@@ -63,7 +63,7 @@ class PresenceChannel extends Channel
     {
         return [
             'presence' => [
-                'ids' => $this->getUserIds(),
+                'ids' => $this->users,
                 'hash' => $this->getHash(),
                 'count' => count($this->users),
             ],
