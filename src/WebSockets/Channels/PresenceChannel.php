@@ -28,13 +28,13 @@ class PresenceChannel extends Channel
 
         // Send the success event
         $connection->send(json_encode([
-            'event' => 'pusher_internal:subscription_succeeded',
+            'event' => 'teclia:subscription_succeeded',
             'channel' => $this->channelName,
             'data' => json_encode($this->getChannelData()),
         ]));
 
         $this->broadcastToOthers($connection, [
-            'event' => 'pusher_internal:member_added',
+            'event' => 'teclia:member_added',
             'channel' => $this->channelName,
             'data' => json_encode($channelData),
         ]);
@@ -49,7 +49,7 @@ class PresenceChannel extends Channel
         }
 
         $this->broadcastToOthers($connection, [
-            'event' => 'pusher_internal:member_removed',
+            'event' => 'teclia:member_removed',
             'channel' => $this->channelName,
             'data' => json_encode([
                 'user_id' => $this->users[$connection->socketId]->user_id,
